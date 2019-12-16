@@ -55,7 +55,7 @@ export default {
     }
 };
 
-// Promise的用法
+// Promise的用法1
 function test(resolve, reject) {
     var timeOut = Math.random() * 2;
     console.log("set timeout to: " + timeOut + " seconds.");
@@ -76,5 +76,17 @@ var p2 = p1.then(function(result) {
 });
 var p3 = p2.catch(function(reason) {
     console.log("失败：" + reason);
+});
+
+// Promise用法2
+var p1 = new Promise(function(resolve, reject) {
+    setTimeout(resolve, 500, "P1");
+});
+var p2 = new Promise(function(resolve, reject) {
+    setTimeout(resolve, 600, "P2");
+});
+// 同时执行p1和p2，并在它们都完成后执行then，把返回结果作为数组传入then
+Promise.all([p1, p2]).then(function(results) {
+    console.log(results); // 获得一个Array: ['P1', 'P2']
 });
 </script>
